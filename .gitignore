@@ -1,0 +1,17 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore editor files
+.vscode/
+.idea/
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore extracted resume text (keep original PDF)
+resume_text.txt
+
+# Ignore logs
+*.log
