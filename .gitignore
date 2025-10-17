@@ -10,8 +10,9 @@ Thumbs.db
 *.tmp
 *.temp
 
-# Ignore extracted resume text (keep original PDF)
+# Ignore extracted resume text and PDF files
 resume_text.txt
+*.pdf
 
 # Ignore logs
 *.log
