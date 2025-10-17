@@ -748,5 +748,77 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(lightThemeStyles);
 
+    // Terminal Typing Animation
+    function initTerminalTyping() {
+        const commands = [
+            'npm install creativity',
+            'git commit -m "Building dreams"',
+            'node app.js --inspire',
+            'yarn start --passion',
+            'console.log("Hello World! 👋")'
+        ];
+        
+        let currentCommand = 0;
+        let currentChar = 0;
+        const typingElement = document.getElementById('typing-text');
+        
+        function typeCommand() {
+            if (!typingElement) return;
+            
+            if (currentChar < commands[currentCommand].length) {
+                typingElement.textContent += commands[currentCommand].charAt(currentChar);
+                currentChar++;
+                setTimeout(typeCommand, 100);
+            } else {
+                setTimeout(() => {
+                    typingElement.textContent = '';
+                    currentChar = 0;
+                    currentCommand = (currentCommand + 1) % commands.length;
+                    setTimeout(typeCommand, 500);
+                }, 2000);
+            }
+        }
+        
+        typeCommand();
+    }
+
+    // Animated Counter for Stats
+    function initStatsCounter() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statItems = entry.target.querySelectorAll('.stat-item');
+                    statItems.forEach(item => {
+                        const target = parseInt(item.getAttribute('data-target'));
+                        const numberElement = item.querySelector('.stat-number');
+                        
+                        let current = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            numberElement.textContent = target === 95 ? 
+                                Math.floor(current) + '%' : 
+                                Math.floor(current);
+                        }, 40);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsContainer = document.querySelector('.stats-container');
+        if (statsContainer) {
+            observer.observe(statsContainer);
+        }
+    }
+
+    // Initialize new animations
+    initTerminalTyping();
+    initStatsCounter();
+
     console.log('Portfolio website loaded successfully! 🚀');
 });
